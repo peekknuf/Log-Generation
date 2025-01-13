@@ -5,9 +5,9 @@ import (
     "os"
     "time"
 
-    "log_gen/config"
-    "log_gen/internal/generator"
-    "log_gen/internal/utils"
+    "github.com/peekknuf/Log-Generation/config"
+    "github.com/peekknuf/Log-Generation/internal/generator"
+    "github.com/peekknuf/Log-Generation/internal/utils"
 )
 
 func main() {
