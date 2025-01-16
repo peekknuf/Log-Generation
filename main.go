@@ -1,40 +1,42 @@
 package main
 
 import (
-    "log"
-    "os"
-    "time"
+	"log"
+	"os"
+	"time"
 
-    "github.com/peekknuf/Log-Generation/config"
-    "github.com/peekknuf/Log-Generation/internal/generator"
-    "github.com/peekknuf/Log-Generation/internal/utils"
+	"github.com/peekknuf/Log-Generation/config"
+	"github.com/peekknuf/Log-Generation/internal/generator"
+	"github.com/peekknuf/Log-Generation/internal/utils"
 )
 
 func main() {
-    cfg := config.DefaultConfig()
+	// Load configuration
+	cfg := config.DefaultConfig()
 
-    // Ensure logs directory exists
-    if err := os.MkdirAll(cfg.LogDirectory, 0755); err != nil {
-        log.Fatalf("Failed to create log directory: %v", err)
-    }
+	// Ensure logs directory exists
+	if err := os.MkdirAll(cfg.LogDirectory, 0755); err != nil {
+		log.Fatalf("Failed to create log directory: %v", err)
+	}
 
-    logFile := "logs" + cfg.LogFormat
+	// Define the log file name
+	logFile := "application" + cfg.LogFormat
 
-    ticker := time.NewTicker(cfg.LogInterval)
-    defer ticker.Stop()
+	// Create a ticker to generate logs at the specified interval
+	ticker := time.NewTicker(cfg.LogInterval)
+	defer ticker.Stop()
 
-    for {
-        select {
-        case <-ticker.C:
-            logEntry := generator.GenerateLog()
-            logData := logEntry.String()
+	// Log generation loop using for range
+	for range ticker.C {
+		// Generate a log entry
+		logEntry := generator.GenerateLog()
+		logData := logEntry.String()
 
-            if err := utils.WriteLog(cfg.LogDirectory, logFile, logData); err != nil {
-                log.Printf("Error writing log: %v", err)
-            } else {
-                log.Println("Generated log:", logData)
-            }
-        }
-    }
+		// Write the log entry to the file
+		if err := utils.WriteLog(cfg.LogDirectory, logFile, logData); err != nil {
+			log.Printf("Error writing log: %v", err)
+		} else {
+			log.Println("Generated log:", logData)
+		}
+	}
 }
-
