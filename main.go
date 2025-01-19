@@ -20,7 +20,7 @@ func main() {
 	}
 
 	// Define the log file name
-	logFile := "application" + cfg.LogFormat
+	logFile := "logs" + cfg.LogFormat
 
 	// Create a ticker to generate logs at the specified interval
 	ticker := time.NewTicker(cfg.LogInterval)
