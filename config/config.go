@@ -10,7 +10,7 @@ type Config struct {
 
 func DefaultConfig() *Config {
 	return &Config{
-		LogInterval:  time.Nanosecond,
+		LogInterval:  time.Microsecond,
 		LogFormat:    ".log",
 		LogDirectory: "./logs/",
 	}
