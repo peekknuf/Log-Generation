@@ -3,16 +3,15 @@ package config
 import "time"
 
 type Config struct {
-    LogInterval  time.Duration
-    LogFormat    string
-    LogDirectory string
+	LogInterval  time.Duration
+	LogFormat    string
+	LogDirectory string
 }
 
 func DefaultConfig() *Config {
-    return &Config{
-        LogInterval:  time.Millisecond,
-        LogFormat:    ".log",
-        LogDirectory: "./logs/",
-    }
+	return &Config{
+		LogInterval:  time.Nanosecond,
+		LogFormat:    ".log",
+		LogDirectory: "./logs/",
+	}
 }
-
